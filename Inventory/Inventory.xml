@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Inventory</name>
+    </assembly>
+    <members>
+        <member name="T:Inventory.Areas.ApiController">
+            <summary>
+            
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="T:Inventory.Areas.Location.Controllers.DistributionCenterController">
+            <summary></summary>
+        </member>
+        <member name="T:Inventory.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Inventory.Program.Main(System.String[])">
+            <summary>
+            Defines the entry point of the application.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Inventory.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Creates the web host builder.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Inventory.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

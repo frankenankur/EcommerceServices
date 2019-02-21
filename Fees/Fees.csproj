@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\SalesTax\Controllers\" />
+    <Folder Include="Areas\SalesTax\Data\" />
+    <Folder Include="Areas\SalesTax\Models\" />
+    <Folder Include="Areas\SalesTax\Views\" />
+    <Folder Include="Areas\UseTax\Controllers\" />
+    <Folder Include="Areas\UseTax\Data\" />
+    <Folder Include="Areas\UseTax\Models\" />
+    <Folder Include="Areas\UseTax\Views\" />
+  </ItemGroup>
+
+</Project>

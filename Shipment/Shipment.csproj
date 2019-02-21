@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\CarrierService\Controllers\" />
+    <Folder Include="Areas\CarrierService\Data\" />
+    <Folder Include="Areas\CarrierService\Models\" />
+    <Folder Include="Areas\CarrierService\Views\" />
+    <Folder Include="Areas\DigitalDelivery\Controllers\" />
+    <Folder Include="Areas\DigitalDelivery\Data\" />
+    <Folder Include="Areas\DigitalDelivery\Models\" />
+    <Folder Include="Areas\DigitalDelivery\Views\" />
+    <Folder Include="Areas\InstallationService\Controllers\" />
+    <Folder Include="Areas\InstallationService\Data\" />
+    <Folder Include="Areas\InstallationService\Models\" />
+    <Folder Include="Areas\InstallationService\Views\" />
+    <Folder Include="Areas\PersonalShopper\Controllers\" />
+    <Folder Include="Areas\PersonalShopper\Data\" />
+    <Folder Include="Areas\PersonalShopper\Models\" />
+    <Folder Include="Areas\PersonalShopper\Views\" />
+  </ItemGroup>
+
+</Project>
