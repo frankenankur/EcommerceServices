@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ApiCore.Services.StartUpService;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NLog;
-using System.IO;
-using ApiCore.Services.LoggerService;
-using ApiCore.Services.DocumentationService;
-using ApiCore.Services.StartUpService;
+using System.Collections.Generic;
 
 namespace Inventory
 {
@@ -16,6 +13,10 @@ namespace Inventory
     /// </summary>
     public class Startup 
     {
+
+        private static List<double> PublishedVersions => new List<double>() { 1.0 };
+        private static string ApiName => "Inventory API";
+
 
         public Startup(IConfiguration configuration)
         {
@@ -26,6 +27,7 @@ namespace Inventory
 
         public IConfiguration Configuration { get; }
 
+       
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,8 +35,8 @@ namespace Inventory
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
-                
-            services.Configure();
+
+            services.Configure(PublishedVersions, ApiName);
 
         }
 
@@ -46,7 +48,7 @@ namespace Inventory
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Configure();
+            app.Configure(PublishedVersions);
         }
 
 

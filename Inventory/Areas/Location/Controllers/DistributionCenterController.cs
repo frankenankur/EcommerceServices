@@ -9,7 +9,7 @@ namespace Inventory.Areas.Location.Controllers
 {
     /// <summary></summary>
     [Area("Location")]
-    [Route("api/[area]/[controller]")]
+    [Route("[area]/[controller]")]
     [ApiController]
     public class DistributionCenterController : ControllerBase
     {

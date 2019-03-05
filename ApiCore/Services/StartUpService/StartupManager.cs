@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ApiCore.Services.StartUpService
@@ -13,17 +14,17 @@ namespace ApiCore.Services.StartUpService
     {
 
               
-        public static void Configure(this IApplicationBuilder app)
+        public static void Configure(this IApplicationBuilder app, IList<double> versions)
         {
             app.UseMvc();
             app.UseSwagger();
-            DocumentationManager.GenerateUI(app);
+            DocumentationManager.GenerateUI(app, versions);
         }
 
-        public static void Configure(this IServiceCollection services)
+        public static void Configure(this IServiceCollection services, IList<double> versions, string apiName)
         {
 
-            DocumentationManager.GenerateDocumentation(services, "Inventory Service", 1.0);
+            DocumentationManager.GenerateDocumentation(services, apiName, versions);
             LoggerManager.ConfigureLoggerService(services);
         }
 
