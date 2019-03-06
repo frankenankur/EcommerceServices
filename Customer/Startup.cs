@@ -31,7 +31,6 @@ namespace Customer
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
@@ -43,11 +42,6 @@ namespace Customer
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.Configure(PublishedVersions);
         }
 

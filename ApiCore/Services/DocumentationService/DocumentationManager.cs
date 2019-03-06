@@ -16,17 +16,16 @@ namespace ApiCore.Services.DocumentationService
                     var versionString = string.Format("v{0}", version);
                     c.SwaggerDoc(versionString, new Info { Title = title, Version = versionString });
                 }
-                
+
+                c.OperationFilter<HeaderFilterService.HeaderFilterManager.HeaderFilter>();
             });
         }
 
         public static void GenerateUI(IApplicationBuilder app, IList<double> versions)
         {
-            
-
             app.UseSwaggerUI(c =>
             {
-                c.RoutePrefix = ""; // serve the UI at root
+                c.RoutePrefix = string.Empty;
 
                 foreach (var version in versions)
                 {

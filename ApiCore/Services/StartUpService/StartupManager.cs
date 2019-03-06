@@ -1,24 +1,27 @@
 ﻿using ApiCore.Services.DocumentationService;
 using ApiCore.Services.LoggerService;
+using ApiCore.Services.ExceptionService;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace ApiCore.Services.StartUpService
 {
     public static class StartupManager
-    {
-
-              
+    {       
         public static void Configure(this IApplicationBuilder app, IList<double> versions)
         {
-            app.UseMvc();
+            app.LoadExceptionHandler();
             app.UseSwagger();
             DocumentationManager.GenerateUI(app, versions);
+            app.UseMvc();
         }
 
         public static void Configure(this IServiceCollection services, IList<double> versions, string apiName)

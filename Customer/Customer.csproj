@@ -22,10 +22,11 @@
     <Folder Include="Areas\Address\Data\" />
     <Folder Include="Areas\Address\Models\" />
     <Folder Include="Areas\Address\Views\" />
-    <Folder Include="Areas\Loyalty\Controllers\" />
     <Folder Include="Areas\Loyalty\Data\" />
     <Folder Include="Areas\Loyalty\Models\" />
+    <Folder Include="Areas\Loyalty\Tasks\" />
     <Folder Include="Areas\Loyalty\Views\" />
+    <Folder Include="Areas\User\Controllers\" />
     <Folder Include="Areas\User\Data\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\" />
