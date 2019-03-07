@@ -1,14 +1,31 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Principal;
 using System.Text;
 
-namespace ApiCore.Services.BearerTokenService
+namespace ApiCore.Middleware
 {
-    public static class BearerTokenManager
+    internal static class BearerTokenMiddleware
     {
-       
+        internal static IApplicationBuilder UseBearerTokenMiddleware(this IApplicationBuilder app, string schema = "Bearer")
+        {
+            return app.Use((async (ctx, next) =>
+            {
+                IIdentity identity = ctx.User.Identity;
+                if ((identity != null ? (!identity.IsAuthenticated ? 1 : 0) : 1) != 0)
+                {
+                    AuthenticateResult authenticateResult = await ctx.AuthenticateAsync(schema);
+                    if (authenticateResult.Succeeded && authenticateResult.Principal != null)
+                        ctx.User = authenticateResult.Principal;
+                }
+                await next();
+            }));
+        }
+
         internal static void ConfigureBearerTokenAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -27,5 +44,4 @@ namespace ApiCore.Services.BearerTokenService
                 });
         }
     }
-       
 }

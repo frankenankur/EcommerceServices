@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ApiCore.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -25,14 +27,24 @@ namespace Customer.Areas.Loyalty.Controllers
                 if (arrRetValues.Length > 0)
                 { }
                 return "Not OK";
-            } else 
+            }
+            else
                 return "OK";
         }
 
-        [HttpPost, Authorize]     
+        [HttpPost, Authorize]
         public ActionResult<string> PurchaseMembership()
         {
-            return "OK";
+            var currentUser = HttpContext.User;
+
+            if (currentUser.HasClaim(c => c.Type == ClaimTypes.Name))
+            {
+                return currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using ApiCore.Services.DocumentationService;
-using ApiCore.Services.ExceptionService;
-using ApiCore.Services.LoggerService;
-using ApiCore.Services.BearerTokenService;
+﻿using ApiCore.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,19 +13,20 @@ namespace ApiCore.Services.StartUpService
     {       
         public static void Configure(this IApplicationBuilder app, IList<double> versions)
         {
-            app.LoadExceptionHandler();
+            app.UseExceptionHandlingMiddleware();
             app.UseSwagger();
-            DocumentationManager.GenerateUI(app, versions);
+            app.UseApiDocumentationMiddleware(versions);
             app.UseAuthentication();
+            app.UseBearerTokenMiddleware();
             app.UseMvc();
 
         }
 
         public static void Configure(this IServiceCollection services, IList<double> versions, IConfiguration configuration)
         {
-            LoggerManager.ConfigureLoggerService(services);
-            DocumentationManager.GenerateDocumentation(services, configuration["API:Name"], versions);
-            BearerTokenManager.ConfigureBearerTokenAuthentication(services, configuration);
+            LoggingMiddleware.ConfigureLoggerService(services);
+            ApiDocumentationMiddleware.GenerateDocumentation(services, configuration["API:Name"], versions);
+            BearerTokenMiddleware.ConfigureBearerTokenAuthentication(services, configuration);
         }
 
         public static void Load(this IConfiguration configuration)

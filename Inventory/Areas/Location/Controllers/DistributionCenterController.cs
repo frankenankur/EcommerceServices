@@ -1,9 +1,8 @@
-﻿using ApiCore.Services.LoggerService;
-using ApiCore.Business.Entities.Errors;
+﻿using ApiCore.Business.Entities.Errors;
+using ApiCore.Middleware;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-
 
 namespace Inventory.Areas.Location.Controllers
 {
@@ -14,9 +13,9 @@ namespace Inventory.Areas.Location.Controllers
     public class DistributionCenterController : ControllerBase
     {
 
-        private readonly ILoggerManager _logger;
+        private readonly LoggingMiddleware _logger;
 
-        public DistributionCenterController(ILoggerManager logger)
+        public DistributionCenterController(LoggingMiddleware logger)
         {
             _logger = logger;
         }

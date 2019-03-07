@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
-namespace ApiCore.Services.LoggerService
+namespace ApiCore.Middleware
 {
-    public class LoggerManager : ILoggerManager
+    public class LoggingMiddleware
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
 
-        public LoggerManager() { }
+        public LoggingMiddleware() { }
 
         public void LogDebug(string message)
         {
@@ -37,7 +36,7 @@ namespace ApiCore.Services.LoggerService
 
         public static void ConfigureLoggerService(IServiceCollection services)
         {
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+            services.AddSingleton<LoggingMiddleware>();
         }
     }
 }

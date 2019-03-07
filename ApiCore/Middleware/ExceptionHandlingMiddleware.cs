@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace ApiCore.Services.ExceptionService
+namespace ApiCore.Middleware
 {
-    public static class ExceptionHandlerManager
+    internal static class ExceptionHandlingMiddleware
     {
-        public static void LoadExceptionHandler(this IApplicationBuilder app)
+        internal static void UseExceptionHandlingMiddleware(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(errorApp =>
             {
