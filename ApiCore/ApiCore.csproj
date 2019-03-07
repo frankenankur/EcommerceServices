@@ -20,6 +20,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Presentation\" />
+    <Folder Include="Services\RolesService\" />
   </ItemGroup>
 
   <ItemGroup>

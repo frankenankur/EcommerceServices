@@ -1,16 +1,14 @@
 ﻿using ApiCore.Services.DocumentationService;
-using ApiCore.Services.LoggerService;
 using ApiCore.Services.ExceptionService;
+using ApiCore.Services.LoggerService;
+using ApiCore.Services.BearerTokenService;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 namespace ApiCore.Services.StartUpService
 {
@@ -21,14 +19,16 @@ namespace ApiCore.Services.StartUpService
             app.LoadExceptionHandler();
             app.UseSwagger();
             DocumentationManager.GenerateUI(app, versions);
+            app.UseAuthentication();
             app.UseMvc();
+
         }
 
-        public static void Configure(this IServiceCollection services, IList<double> versions, string apiName)
+        public static void Configure(this IServiceCollection services, IList<double> versions, IConfiguration configuration)
         {
-
-            DocumentationManager.GenerateDocumentation(services, apiName, versions);
             LoggerManager.ConfigureLoggerService(services);
+            DocumentationManager.GenerateDocumentation(services, configuration["API:Name"], versions);
+            BearerTokenManager.ConfigureBearerTokenAuthentication(services, configuration);
         }
 
         public static void Load(this IConfiguration configuration)

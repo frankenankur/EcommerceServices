@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
-namespace Payments
+namespace Payment
 {
     /// <summary>
     /// 
@@ -15,8 +15,6 @@ namespace Payments
     {
 
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
-        private static string ApiName => "Payment API";
-
 
         public Startup(IConfiguration configuration)
         {
@@ -31,23 +29,17 @@ namespace Payments
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
-            services.Configure(PublishedVersions, ApiName);
+            services.Configure(PublishedVersions, Configuration);
 
         }
 
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.Configure(PublishedVersions);
         }
 

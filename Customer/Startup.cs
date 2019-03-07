@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace Customer
@@ -15,9 +16,7 @@ namespace Customer
     {
 
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
-        private static string ApiName => "Customer API";
-
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +34,7 @@ namespace Customer
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
-            services.Configure(PublishedVersions, ApiName);
+            services.Configure(PublishedVersions, Configuration);
 
         }
 

@@ -15,9 +15,7 @@ namespace Activity
     {
 
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
-        private static string ApiName => "Activity API";
-
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,14 +27,14 @@ namespace Activity
 
 
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
-            services.Configure(PublishedVersions, ApiName);
+            services.Configure(PublishedVersions, configuration);
 
         }
 

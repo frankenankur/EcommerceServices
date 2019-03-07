@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ApiCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.Areas.Loyalty.Controllers
@@ -13,19 +14,25 @@ namespace Customer.Areas.Loyalty.Controllers
 
         // GET: Loyalty/Membership/5
         [HttpGet("{membershipId}", Name = "ValidateMembership")]
-        [ProducesResponseType(typeof(string), 200)]        public ActionResult<string> ValidateMembership(int membershipId)
+        [ProducesResponseType(typeof(string), 200)]
+        public ActionResult<string> ValidateMembership(int membershipId)
         {
+            var throwException = false;
 
+            if (throwException)
+            {
                 string[] arrRetValues = null;
                 if (arrRetValues.Length > 0)
                 { }
+                return "Not OK";
+            } else 
                 return "OK";
         }
 
-        [HttpPost]
-        public string PurchaseMembership([FromBody] string value)
+        [HttpPost, Authorize]     
+        public ActionResult<string> PurchaseMembership()
         {
-            throw new NotImplementedException();
+            return "OK";
         }
     }
 }

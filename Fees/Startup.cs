@@ -15,8 +15,6 @@ namespace Fees
     {
 
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
-        private static string ApiName => "Fees API";
-
 
         public Startup(IConfiguration configuration)
         {
@@ -31,23 +29,17 @@ namespace Fees
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
-            services.Configure(PublishedVersions, ApiName);
+            services.Configure(PublishedVersions, Configuration);
 
         }
 
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.Configure(PublishedVersions);
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections.Generic;
 
 namespace ApiCore.Services.DocumentationService
@@ -17,6 +18,21 @@ namespace ApiCore.Services.DocumentationService
                     c.SwaggerDoc(versionString, new Info { Title = title, Version = versionString });
                 }
 
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }},
+                };
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.AddSecurityRequirement(security);
+
                 c.OperationFilter<HeaderFilterService.HeaderFilterManager.HeaderFilter>();
             });
         }
@@ -32,7 +48,7 @@ namespace ApiCore.Services.DocumentationService
                     var versionString = string.Format("v{0}", version);
                     c.SwaggerEndpoint(string.Format("/swagger/{0}/swagger.json", versionString), string.Format("{0} Docs", versionString));
                 }
-                                
+                c.DocExpansion(DocExpansion.List);
                 c.DisplayOperationId();
             });
         }
