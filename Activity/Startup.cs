@@ -1,4 +1,6 @@
-﻿using ApiCore.Services.StartUpService;
+﻿using ApiCore.Models.Security;
+using ApiCore.Services;
+using ApiCore.Services.StartUpService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +17,11 @@ namespace Activity
     {
 
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
+        private static ConfigurationService ConfigurationService;
         
         public Startup(IConfiguration configuration)
         {
+            ConfigurationService = new ConfigurationService(configuration);
             Configuration = configuration;
             configuration.Load();
         }
@@ -34,7 +38,7 @@ namespace Activity
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
-            services.Configure(PublishedVersions, configuration);
+            services.Configure(PublishedVersions, ConfigurationService);
 
         }
 

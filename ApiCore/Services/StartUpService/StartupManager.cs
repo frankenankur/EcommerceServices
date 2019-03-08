@@ -1,4 +1,5 @@
 ﻿using ApiCore.Middleware;
+using ApiCore.Models.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,11 +23,12 @@ namespace ApiCore.Services.StartUpService
 
         }
 
-        public static void Configure(this IServiceCollection services, IList<double> versions, IConfiguration configuration)
+        public static void Configure(this IServiceCollection services, IList<double> versions, ConfigurationService configurationService)
         {
             LoggingMiddleware.ConfigureLoggerService(services);
-            ApiDocumentationMiddleware.GenerateDocumentation(services, configuration["API:Name"], versions);
-            BearerTokenMiddleware.ConfigureBearerTokenAuthentication(services, configuration);
+            ApiDocumentationMiddleware.GenerateDocumentation(services, configurationService, versions);
+            BearerTokenMiddleware.ConfigureBearerTokenAuthentication(services, configurationService);
+            AuthorizationMiddleware.ConfigureAuthorizations(services, configurationService.GetAPiAuthorizationPolicies());
         }
 
         public static void Load(this IConfiguration configuration)

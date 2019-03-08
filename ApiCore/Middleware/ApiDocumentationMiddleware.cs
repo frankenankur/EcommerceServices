@@ -1,4 +1,5 @@
 ﻿using ApiCore.Filters;
+using ApiCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -25,14 +26,14 @@ namespace ApiCore.Middleware
                 });
         }
 
-        internal static void GenerateDocumentation(IServiceCollection services, string title, IList<double> versions)
+        internal static void GenerateDocumentation(IServiceCollection services, ConfigurationService configurationService , IList<double> versions)
         {
             services.AddSwaggerGen(c =>
             {
                 foreach (var version in versions)
                 {
                     var versionString = string.Format("v{0}", version);
-                    c.SwaggerDoc(versionString, new Info { Title = title, Version = versionString });
+                    c.SwaggerDoc(versionString, new Info { Title = configurationService.GetApiName(), Version = versionString });
                 }
 
                 var security = new Dictionary<string, IEnumerable<string>>
