@@ -37,8 +37,9 @@ namespace Customer.Areas.Loyalty.Controllers
         public ActionResult<string> PurchaseMembership()
         {
             var claims = new ClaimsService(HttpContext);
-
             return claims.SalesChannelId;
+
+            ;
         }
     }
 }

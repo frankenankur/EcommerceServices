@@ -28,7 +28,7 @@ namespace ApiCore.Services
             var returnValue = new List<AuthorizationPolicy>();
             Configuration.GetSection("API:AuthorizationPolicies").Bind(returnValue);
 
-            return returnValue.ToList();
+            return returnValue.ToList();           
         }
     }
 }
