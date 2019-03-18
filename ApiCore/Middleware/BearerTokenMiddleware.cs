@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using ApiCore.Models;
+using ApiCore.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using System.Security.Claims;
+using Newtonsoft.Json;
+using System.Security.Authentication;
 using System.Security.Principal;
 using System.Text;
-using System.Linq;
-using ApiCore.Services;
 
 namespace ApiCore.Middleware
 {
@@ -24,7 +24,17 @@ namespace ApiCore.Middleware
                 {
                     AuthenticateResult authenticateResult = await context.AuthenticateAsync(schema);
                     if (authenticateResult.Succeeded && authenticateResult.Principal != null)
-                        context.User = authenticateResult.Principal;                    
+                        context.User = authenticateResult.Principal;
+                    else
+                    {
+                        var responseObj = new ApiExceptionResponse(System.Net.HttpStatusCode.Unauthorized, new AuthenticationException(), "", false);
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(
+                            JsonConvert.SerializeObject(responseObj)
+                            ).ConfigureAwait(false);
+                        return;
+                    }
                 }
                 await next();
             }));

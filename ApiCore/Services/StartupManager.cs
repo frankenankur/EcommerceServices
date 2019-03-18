@@ -1,6 +1,6 @@
 ﻿using ApiCore.Middleware;
-using ApiCore.Models.Security;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -8,18 +8,27 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ApiCore.Services.StartUpService
+namespace ApiCore.Services
 {
     public static class StartupManager
     {       
-        public static void Configure(this IApplicationBuilder app, IList<double> versions)
+        public static void Configure(this IApplicationBuilder app, IHostingEnvironment env, IList<double> versions)
         {
-            app.UseExceptionHandlingMiddleware();
+
             app.UseSwagger();
             app.UseApiDocumentationMiddleware(versions);
             app.UseAuthentication();
             app.UseBearerTokenMiddleware();
+            if (env.IsDevelopment())
+            {
+                app.UseApiResponseExceptionWrapping(true);
+            } else
+            {
+                app.UseApiResponseExceptionWrapping(false);
+            }
+            
             app.UseMvc();
+            
 
         }
 

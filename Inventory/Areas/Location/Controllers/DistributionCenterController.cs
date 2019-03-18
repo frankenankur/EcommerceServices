@@ -1,5 +1,7 @@
-﻿using ApiCore.Business.Entities.Errors;
-using ApiCore.Middleware;
+﻿using ApiCore.Middleware;
+using ApiCore.Models;
+using ApiCore.Extensions;
+using ApiCore.Models.Enumerations;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -21,24 +23,25 @@ namespace Inventory.Areas.Location.Controllers
         }
 
         [HttpGet("v1/{itemNumber}", Name = "GetDistributionCenterByItem")]
-        [ProducesResponseType(typeof(ApiErrorResponse), 400)]
-        [ProducesResponseType(typeof(ApiErrorResponse), 500)]
         public string GetDistributionCenterByItem(
             [FromRoute, SwaggerParameter("Costco Item Number", Required = true)] int itemNumber)
         {
-            try
-            {
-                _logger.LogInfo("Yeah");
-                _logger.LogError("Yeah");
-                return string.Format("{0} {1}", "you are looking for a place that sells itemNumber", itemNumber);
-                
-            }
-            catch (Exception ex)
-            {
+            //throw new ApiExceptionResponse(HttpStatusCodes.InternalServerError_500, new Exception(), Request.GetHeader(RequestHeaders.TrackingId), true);
+            throw new Exception();
 
-                _logger.LogError(ex.Message);
-                return new ApiErrorResponse(ex.HResult, ex.TargetSite.Name, ex.Message).ToString();
-            }
+            //try
+            //{
+            //    _logger.LogInfo("Yeah");
+            //    _logger.LogError("Yeah");
+            //    return string.Format("{0} {1}", "you are looking for a place that sells itemNumber", itemNumber);
+                
+            //}
+            //catch (Exception ex)
+            //{
+                
+            //    _logger.LogError(ex.Message);
+               
+            //}
 
             
         }

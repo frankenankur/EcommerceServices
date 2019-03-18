@@ -12,17 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\Components\" />
-    <Folder Include="Business\Workflows\" />
-    <Folder Include="Data\Access\" />
-    <Folder Include="Data\Helpers\" />
-    <Folder Include="Data\ServiceAgents\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Presentation\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Messaging\Messaging.csproj" />
   </ItemGroup>
 

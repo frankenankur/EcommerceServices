@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ApiCore.Models;
-using ApiCore.Services;
+﻿using ApiCore.Extensions;
+using ApiCore.Models.Enumerations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +16,7 @@ namespace Customer.Areas.Loyalty.Controllers
         [ProducesResponseType(typeof(string), 200)]
         public ActionResult<string> ValidateMembership(int membershipId)
         {
-            var throwException = false;
+            var throwException = true;
 
             if (throwException)
             {
@@ -36,10 +32,7 @@ namespace Customer.Areas.Loyalty.Controllers
         [HttpPost, Authorize(Policy="OrderOperator")]
         public ActionResult<string> PurchaseMembership()
         {
-            var claims = new ClaimsService(HttpContext);
-            return claims.SalesChannelId;
-
-            ;
+            return HttpContext.GetClaim(Claims.SalesChannelId);
         }
     }
 }

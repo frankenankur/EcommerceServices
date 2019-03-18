@@ -1,4 +1,6 @@
-﻿using Swashbuckle.AspNetCore.Swagger;
+﻿using ApiCore.Extensions;
+using ApiCore.Models.Enumerations;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace ApiCore.Filters
 
             operation.Parameters.Add(new NonBodyParameter
             {
-                Name = "costco.trackingId",
+                Name = RequestHeaders.TrackingId.GetDescription(),
                 In = "header",
                 Type = "string",
                 Required = true
@@ -23,7 +25,7 @@ namespace ApiCore.Filters
 
             operation.Parameters.Add(new NonBodyParameter
             {
-                Name = "costco.env",
+                Name = RequestHeaders.Environment.GetDescription(),
                 In = "header",
                 Type = "string",
                 Required = true

@@ -1,4 +1,6 @@
-﻿using ApiCore.Filters;
+﻿using ApiCore.Extensions;
+using ApiCore.Filters;
+using ApiCore.Models.Enumerations;
 using ApiCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,13 +40,13 @@ namespace ApiCore.Middleware
 
                 var security = new Dictionary<string, IEnumerable<string>>
                 {
-                    {"Bearer", new string[] { }},
+                    {"Bearer", System.Array.Empty<string>()},
                 };
 
                 c.AddSecurityDefinition("Bearer", new ApiKeyScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
+                    Name = RequestHeaders.AutorizationToken.GetDescription(),
                     In = "header",
                     Type = "apiKey"
                 });

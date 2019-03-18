@@ -1,30 +1,38 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using ApiCore.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System.Text;
+using ApiCore.Extensions;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace ApiCore.Middleware
 {
     internal static class ExceptionHandlingMiddleware
     {
-        internal static void UseExceptionHandlingMiddleware(this IApplicationBuilder app)
+        internal static void UseApiResponseExceptionWrapping(this IApplicationBuilder app, bool developmentMode)
         {
-            app.UseExceptionHandler(errorApp =>
-            {
-                errorApp.Run(async context =>
+            app.UseExceptionHandler(x =>
                 {
-                    context.Response.StatusCode = 500; // or another Status accordingly to Exception Type
-                    context.Response.ContentType = "application/json";
-
-                    var error = context.Features.Get<IExceptionHandlerFeature>();
-                    if (error != null)
+                    x.Run(async context =>
                     {
-                        var ex = error.Error;
 
-                        await context.Response.WriteAsync(new Models.JsonErrorResponses.Response500(ex).ToString(), Encoding.UTF8);
-                    }
+                        var responseStatusCode = (HttpStatusCode)context.Response.StatusCode;
+                        var ex = context.Features.Get<IExceptionHandlerFeature>();
+                        var trackingId = context.Request.GetHeader(Models.Enumerations.RequestHeaders.TrackingId);
+
+                        context.Response.ContentType = "application/json";
+
+                        if (ex != null)
+                        {
+                            var responseObj = new ApiExceptionResponse(responseStatusCode, ex.Error, trackingId, developmentMode);
+
+                            await context.Response.WriteAsync(
+                                JsonConvert.SerializeObject(responseObj)
+                                ).ConfigureAwait(false);
+                        }
+                    });
                 });
-            });
         }
     }
 }

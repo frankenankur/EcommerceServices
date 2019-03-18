@@ -1,5 +1,4 @@
 ﻿using ApiCore.Services;
-using ApiCore.Services.StartUpService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +42,7 @@ namespace Security
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.Configure(PublishedVersions);
+            app.Configure(env, PublishedVersions);
         }
 
 
