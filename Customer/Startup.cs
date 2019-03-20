@@ -1,11 +1,9 @@
-﻿using ApiCore.Models.Security;
-using ApiCore.Services;
+﻿using ApiCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace Customer
@@ -15,7 +13,6 @@ namespace Customer
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
 
@@ -25,8 +22,6 @@ namespace Customer
             Configuration = configuration;
             configuration.Load();
         }
-
-       
 
 
         public IConfiguration Configuration { get; }
@@ -47,7 +42,5 @@ namespace Customer
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }

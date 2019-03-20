@@ -9,37 +9,31 @@ namespace Security.Areas.Identities.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        // GET: api/Customer
+        // GET: api/Customers
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Customer/5
+        // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST: api/Customer
+        // POST: api/Customers
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Customer/5
+        // PUT: api/Customers/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
         {
         }
     }

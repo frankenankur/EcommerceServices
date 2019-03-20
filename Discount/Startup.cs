@@ -13,7 +13,6 @@ namespace Discount
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
 
@@ -36,7 +35,6 @@ namespace Discount
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
@@ -44,7 +42,5 @@ namespace Discount
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }

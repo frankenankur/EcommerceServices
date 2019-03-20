@@ -36,7 +36,6 @@ namespace Inventory
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
@@ -44,7 +43,5 @@ namespace Inventory
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }

@@ -13,7 +13,6 @@ namespace Shipment
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
 
@@ -36,7 +35,6 @@ namespace Shipment
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
@@ -44,7 +42,6 @@ namespace Shipment
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }
+

@@ -13,7 +13,6 @@ namespace Order
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
 
@@ -36,7 +35,6 @@ namespace Order
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
@@ -44,7 +42,5 @@ namespace Order
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }

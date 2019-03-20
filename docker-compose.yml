@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  activity:
+    image: ${DOCKER_REGISTRY-}activity
+    build:
+      context: .
+      dockerfile: Activity\Dockerfile

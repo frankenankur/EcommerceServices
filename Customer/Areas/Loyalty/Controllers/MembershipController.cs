@@ -3,7 +3,7 @@ using ApiCore.Models.Enumerations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Customer.Areas.Loyalty.Controllers
+namespace Customers.Areas.Loyalty.Controllers
 {
     [Area("Loyalty")]
     [Route("[area]/[controller]")]

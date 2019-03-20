@@ -1,5 +1,4 @@
-﻿using ApiCore.Models.Security;
-using ApiCore.Services;
+﻿using ApiCore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +13,9 @@ namespace Activity
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
-        
+
         public Startup(IConfiguration configuration)
         {
             ConfigurationService = new ConfigurationService(configuration);
@@ -30,28 +28,19 @@ namespace Activity
 
 
 
-        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }

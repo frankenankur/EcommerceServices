@@ -13,7 +13,6 @@ namespace Security
     /// </summary>
     public class Startup
     {
-
         private static List<double> PublishedVersions => new List<double>() { 1.0 };
         private static ConfigurationService ConfigurationService;
 
@@ -36,7 +35,6 @@ namespace Security
                 .AddOptions();
 
             services.Configure(PublishedVersions, ConfigurationService);
-
         }
 
 
@@ -44,7 +42,5 @@ namespace Security
         {
             app.Configure(env, PublishedVersions);
         }
-
-
     }
 }
